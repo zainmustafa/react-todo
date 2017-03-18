@@ -8,29 +8,29 @@ class App extends Component {
         super();
         this.state = {
             todo : '',
-            todoList : ["zain", "naqash", "owais", "zain"]
+            todoList : [{todo:'Zain'},{todo:'Zain'},{todo:'Zain'}]
         }
-
     }
+
     onChangeInput(event){
         this.setState({
             todo : event.target.value
         });
     }
+
     addTodo (){
 
-        let to = this.state.todoList;
-        to.push(this.state.todo);
+        this.state.todoList.push({todo:this.state.todo});
         this.setState({
-            todoList : to
+            todoList : this.state.todoList
         })
 
     }
 
-    getList(li) {
+    getList(arr) {
         return (
-            li.map((item, index) => {
-                return <li key={index}>{item}</li>
+            arr.map((item, index) => {
+                return <li key={index}>{item.todo}</li>
             })
         )
     }
@@ -47,11 +47,14 @@ class App extends Component {
        To get started, edit <code>src/App.js</code> and save to reload.
        </p>
        <div>
-       <ul>
-           {this.getList(this.state.todoList)}
-       </ul>
-       <input type="text" placeholder="Enter Todo" value={this.todo} onChange={this.onChangeInput.bind(this)}/>
-       <button type="button" onClick={this.addTodo.bind(this)}>Add</button>
+           <ul>
+               {this.getList(this.state.todoList)}
+           </ul>
+
+           <input type="text" placeholder="Enter Todo" onChange={this.onChangeInput.bind(this)}/>
+
+
+           <button type="button" onClick={this.addTodo.bind(this)}>Add</button>
        </div>
 
       </div>
