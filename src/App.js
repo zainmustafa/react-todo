@@ -35,11 +35,11 @@ class App extends Component {
         }
         event.preventDefault();
     }
-    deleteTodo(index,event){
-        delete this.state.todoList[index];
+    deleteTodo(index){
+        this.state.todoList.splice(index,1);
         this.setState({
             todoList : this.state.todoList
-        })
+        });
     }
 
     getList(arr) {
