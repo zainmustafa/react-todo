@@ -8,23 +8,31 @@ class App extends Component {
         super();
         this.state = {
             todo : '',
-            todoList : [{todo:'Zain'},{todo:'Zain'},{todo:'Zain'}]
+            time : '',
+            todoList : []
         }
     }
 
     onChangeInput(event){
+        let currentdate = new Date();
+        let datetime = currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
         this.setState({
-            todo : event.target.value
+            todo : event.target.value,
+            time : datetime
         });
     }
 
     addTodo (event){
-        this.state.todoList.push({todo:this.state.todo});
+        if(this.state.todo){
+            this.state.todoList.push({todo:this.state.todo, time : this.state.time});
 
-        this.setState({
-            todo : '',
-            todoList : this.state.todoList
-        });
+            this.setState({
+                todo : '',
+                todoList : this.state.todoList
+            });
+        }
         event.preventDefault();
     }
     deleteTodo(index,event){
@@ -37,10 +45,12 @@ class App extends Component {
     getList(arr) {
         return (
             arr.map((item, index) => {
-                return <div key={index}>
-                            <li >{item.todo}</li>
-                            <button onClick={this.deleteTodo.bind(this,index)}>Delete</button>
-                        </div>
+                return <tr key={index} >
+                            <td>{item.todo} </td>
+                            <td>{item.time} </td>
+                            <td><button onClick={this.deleteTodo.bind(this,index)}>Delete</button></td>
+
+                        </tr>
 
             })
         )
@@ -59,9 +69,19 @@ class App extends Component {
             To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <div>
-           <ul>
-               {this.getList(this.state.todoList)}
-           </ul>
+           <table >
+               <thead>
+                   <tr>
+                       <th>Todo</th>
+                       <th>Time</th>
+                       <th>Delete</th>
+                   </tr>
+               </thead>
+
+               <tbody>
+                   {this.getList(this.state.todoList)}
+               </tbody>
+           </table>
             <form onSubmit={this.addTodo.bind(this)}>
                 <input type="text" placeholder="Enter Todo"
                        onChange={this.onChangeInput.bind(this)}
