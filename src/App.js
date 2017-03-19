@@ -66,7 +66,7 @@ class App extends Component {
                 <input type="text" placeholder="Enter Todo"
                        onChange={this.onChangeInput.bind(this)}
                        value={this.state.todo}/>
-                <button type="button" onClick={this.addTodo.bind(this)}>Add</button>
+                <button type="button" onClick={this.addTodo.bind(this)} disabled={!this.state.todo}>Add</button>
             </form>
         </div>
 
