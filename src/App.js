@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import ViewTodo from './ViewTodo'
 import './App.css';
 
 class App extends Component {
@@ -35,26 +36,7 @@ class App extends Component {
         }
         event.preventDefault();
     }
-    deleteTodo(index){
-        this.state.todoList.splice(index,1);
-        this.setState({
-            todoList : this.state.todoList
-        });
-    }
 
-    getList(arr) {
-        return (
-            arr.map((item, index) => {
-                return <tr key={index} >
-                            <td>{item.todo} </td>
-                            <td>{item.time} </td>
-                            <td><button onClick={this.deleteTodo.bind(this,index)}>Delete</button></td>
-
-                        </tr>
-
-            })
-        )
-    }
 
   render() {
 
@@ -69,18 +51,7 @@ class App extends Component {
             React Todo App with basic features.
         </p>
         <div>
-           <table style={this.state.todoList.length === 0 ? { display: 'none' } : {} }>
-               <thead>
-                   <tr>
-                       <th>Todo</th>
-                       <th>Time</th>
-                       <th>Delete</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   {this.getList(this.state.todoList)}
-               </tbody>
-           </table>
+            <ViewTodo todoList={this.state.todoList} />
             <form onSubmit={this.addTodo.bind(this)}>
                 <input type="text" placeholder="Enter Todo"
                        onChange={this.onChangeInput.bind(this)}
