@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import ViewTodo from './ViewTodo'
+import ViewTodo from './ViewTodo';
+import Login from './login/Login';
 import './App.css';
+import { Button } from 'react-bootstrap';
 
 class App extends Component {
 
@@ -37,6 +39,10 @@ class App extends Component {
         event.preventDefault();
     }
 
+    performLogin(user){
+        console.log("User Data",user);
+    }
+
 
   render() {
 
@@ -48,7 +54,7 @@ class App extends Component {
         <h2>React Todo</h2>
         </div>
         <p className="App-intro">
-            React Todo App with basic features.
+            React Todo App (CR_D)
         </p>
         <div>
             <ViewTodo todoList={this.state.todoList} />
@@ -56,9 +62,12 @@ class App extends Component {
                 <input type="text" placeholder="Enter Todo"
                        onChange={this.onChangeInput.bind(this)}
                        value={this.state.todo}/>
-                <button type="button" onClick={this.addTodo.bind(this)} disabled={!this.state.todo}>Add</button>
+                <Button type="button" className="btn btn-primary" onClick={this.addTodo.bind(this)} disabled={!this.state.todo}>Add</Button>
             </form>
         </div>
+          <div>
+            <Login performLogin={this.performLogin.bind(this)}/>
+          </div>
 
       </div>
     );
